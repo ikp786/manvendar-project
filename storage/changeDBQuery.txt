@@ -1,0 +1,32 @@
+ALTER TABLE `commissions` ADD `purchage_cast` DOUBLE NOT NULL DEFAULT '0' AFTER `scheme_id`;
+ALTER TABLE `commissions` ADD `max_commission` DOUBLE NOT NULL DEFAULT '0' AFTER `r`;
+ALTER TABLE `commissions` ADD `isError` INT(1) NULL DEFAULT '0' COMMENT '0=>No Error, 1=>Error(No recharge proceed)' AFTER `type`;
+ALTER TABLE `commissions` CHANGE `isError` `is_error` INT(1) NULL DEFAULT '0' COMMENT '0=>No Error, 1=>Error(No recharge proceed)';
+ALTER TABLE `providers` CHANGE `redpay` `redpay` VARCHAR(25) CHARACTER SET utf8 COLLATE utf8_unicode_ci NULL DEFAULT NULL COMMENT 'redpay';
+ALTER TABLE `providers` CHANGE `cyber` `cyber` VARCHAR(25) CHARACTER SET utf8 COLLATE utf8_unicode_ci NULL DEFAULT NULL COMMENT 'cyber';
+ALTER TABLE `providers` CHANGE `id` `id` INT(10) UNSIGNED NOT NULL AUTO_INCREMENT, CHANGE `tramo_code` `tramo_code` VARCHAR(10) CHARACTER SET utf8 COLLATE utf8_unicode_ci NULL DEFAULT NULL, CHANGE `provider_code` `provider_code` VARCHAR(10) CHARACTER SET utf8 COLLATE utf8_unicode_ci NULL DEFAULT NULL, CHANGE `cyber` `cyber` VARCHAR(10) CHARACTER SET utf8 COLLATE utf8_unicode_ci NULL DEFAULT NULL COMMENT 'cyberPlat', CHANGE `redpay` `redpay` VARCHAR(25) CHARACTER SET utf8 COLLATE utf8_unicode_ci NULL DEFAULT NULL COMMENT 'redpay', CHANGE `provider_code2` `provider_code2` VARCHAR(200) CHARACTER SET utf8 COLLATE utf8_unicode_ci NULL DEFAULT NULL COMMENT 'Xp Recharge', CHANGE `provider_code3` `provider_code3` VARCHAR(10) CHARACTER SET utf8 COLLATE utf8_unicode_ci NULL DEFAULT NULL COMMENT 'Digitalepay', CHANGE `provider_code4` `provider_code4` VARCHAR(10) CHARACTER SET utf8 COLLATE utf8_unicode_ci NULL DEFAULT NULL COMMENT 'Indo One', CHANGE `r_offer_code` `r_offer_code` VARCHAR(50) CHARACTER SET utf8 COLLATE utf8_unicode_ci NULL DEFAULT NULL, CHANGE `r_offer_code2` `r_offer_code2` VARCHAR(50) CHARACTER SET utf8 COLLATE utf8_unicode_ci NULL DEFAULT NULL, CHANGE `sertype` `sertype` VARCHAR(200) CHARACTER SET utf8 COLLATE utf8_unicode_ci NULL DEFAULT NULL, CHANGE `vender_code` `vender_code` VARCHAR(10) CHARACTER SET utf8 COLLATE utf8_unicode_ci NULL DEFAULT NULL, CHANGE `otomax` `otomax` VARCHAR(10) CHARACTER SET utf8 COLLATE utf8_unicode_ci NULL DEFAULT NULL, CHANGE `api_id` `api_id` INT(10) UNSIGNED NOT NULL DEFAULT '1', CHANGE `status_id` `status_id` INT(10) UNSIGNED NOT NULL DEFAULT '1', CHANGE `provider_image` `provider_image` VARCHAR(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NULL DEFAULT NULL, CHANGE `created_at` `created_at` TIMESTAMP NULL DEFAULT NULL, CHANGE `updated_at` `updated_at` TIMESTAMP NULL DEFAULT NULL;
+ALTER TABLE `providers` ADD `max_hold_txn` INT NOT NULL DEFAULT '0' COMMENT 'Number of txn hold ' AFTER `provider_image`, ADD `min_pass_amt_txn` INT NOT NULL DEFAULT '0' COMMENT 'hold txn greater than amount' AFTER `max_hold_txn`;
+ALTER TABLE `providers` ADD `hold_txn_couter` INT NOT NULL DEFAULT '0' AFTER `max_hold_txn`;
+ALTER TABLE `reports` CHANGE `d_user_balance` `dist_commission` DOUBLE NULL DEFAULT '0', CHANGE `m_user_balance` `md_commission` DOUBLE NULL DEFAULT '0', CHANGE `a_user_balance` `admin_commission` DOUBLE NULL DEFAULT '0';
+ALTER TABLE `reports` ADD `txn_status_type` VARCHAR(20) NULL DEFAULT NULL AFTER `status_id`;
+ALTER TABLE `premium_wallet_schemes` ADD `is_error` INT NOT NULL DEFAULT '0' AFTER `wallet_scheme_id`;
+ALTER TABLE `imps_wallet_schemes` ADD `is_error` INT NOT NULL DEFAULT '0' AFTER `wallet_scheme_id`;
+
+
+
+<!--------------- 15 OCT --------------------->
+ALTER TABLE `balances` ADD `cash_deposit_charge` DOUBLE NOT NULL DEFAULT '0' AFTER `user_commission`, ADD `cash_deposit_min_charge` DOUBLE NOT NULL DEFAULT '0' AFTER `cash_deposit_charge`;
+
+ALTER TABLE `masterbanks` ADD `manual_status` INT NOT NULL DEFAULT '1' COMMENT '1=>Up,0=>Down' AFTER `bank_status`;
+ALTER TABLE `masterbanks` CHANGE `bank_status` `bank_status` INT(10) NOT NULL DEFAULT '1' COMMENT '0=>Bank Down, 1=>Bank Up';
+
+ALTER TABLE `masterbanks` CHANGE `manual_status` `manual_status` INT(11) NOT NULL DEFAULT '1' COMMENT '1=>Bank Up,0=>Bank Down';
+
+ALTER TABLE `masterbanks` CHANGE `saral` `is_imps_txn_allow` TINYINT NOT NULL DEFAULT '1' COMMENT '0=>No, 1=>Yes';
+
+ALTER TABLE `action_otp_verifications` ADD `otp_verified` TINYINT NOT NULL DEFAULT '0' AFTER `otp`;
+
+
+
+ALTER TABLE `api_aeps_agent_registrations` CHANGE `status_id` `status_id` TINYINT(4) NOT NULL DEFAULT '0'; Runned at lived
+ALTER TABLE `api_aeps_agent_registrations` CHANGE `remark` `remark` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL; Lived<!----  14 Jan 2020--- For New Mobile Device varification ------->ALTER TABLE `profiles` ADD `imei_number` VARCHAR(25) NULL AFTER `is_opt_verification`, ADD `imei_verify_otp` VARCHAR(6) NULL AFTER `imei_number`;

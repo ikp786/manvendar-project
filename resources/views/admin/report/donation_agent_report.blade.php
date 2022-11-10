@@ -1,0 +1,94 @@
+@extends('admin.layouts.templatetable')
+
+@section('content')
+
+        <!-- Page-Title -->
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="col-lg-6 col-md-6">
+                    <h4 class="page-title" style="color: white; font-size: 36px;">{{ $page_title or 'DONATION DETAIL' }}</h4>
+                </div>
+                
+            </div>
+        </div><br>
+
+        <!--Basic Columns-->
+        <!--===================================================-->
+
+
+        <!--===================================================-->
+        <div class="row">
+            <div class="col-sm-12">
+
+                <div class="panel panel-default">
+                    <div class="panel-body">
+                        <div class="col-md-12">
+                            <div class="col-md-8">
+                                <form method="get" action="{{ url('searchall_donation') }}">
+                                    <div class="form-group col-md-4">
+                                        <input name="fromdate" class="form-control" type="date">
+                                    </div>
+                                    <div class="form-group col-md-4">
+                                        <input name="todate" class="form-control" type="date">
+                                    </div>
+                                    <div class="form-group col-md-2">
+                                        <button name="export" value="export" type="submit"
+                                                class="btn btn-success waves-effect waves-light m-l-10 btn-md"><span
+                                                    class="glyphicon glyphicon-find"></span>Export
+                                        </button>
+                                    </div>
+                                    <div class="form-group col-md-2">
+                                        <button value="search" name="search" type="submit"
+                                                class="btn btn-success waves-effect waves-light m-l-10 btn-md"><span
+                                                    class="glyphicon glyphicon-find"></span>Search
+                                        </button>
+                                    </div>
+                                </form>
+                            </div>
+                            <script>
+
+                            </script>
+                        </div>
+
+                    </div>
+                </div>
+                <div class="card-box">
+                    <h4 class="m-t-0 header-title"><b>{{ $page_title or 'Donation Detail' }}</b></h4>
+                    <p class="text-muted font-13">
+                        All Recharge Detail
+                    </p>
+                    <table id="demo-custom-toolbar" data-toggle="table"
+                           data-toolbar="#demo-delete-row"
+                           data-search="true"
+                           data-sort-name="id"
+                           data-page-list="[5, 10, 20]">
+                        <thead>
+                        <tr>
+                            <th data-field="state" data-checkbox="true"></th>
+                            <th data-field="provider" data-sortable="true">Agent Name</th>
+                            <th data-field="amount" data-sortable="true">Total Amount</th>
+                            <th data-field="count_sale" data-sortable="true">Total Count</th>
+    
+                        </tr>
+                        </thead>
+
+                        <tbody>
+                        @foreach($reports as $key => $value)
+                            <tr>
+                                <td>{{ $value->id }}</td>
+                                <td>{{ $value->user->name }} ({{ $value->user->id }})</td>
+                                <td>{{ $value->total_donation }}</td>
+                                <td>{{ $value->count_donation }}</td>
+                                
+                            </tr>
+                        @endforeach
+
+                        </tbody>
+                    </table>
+                    {!! $reports->links() !!}
+                </div>
+            </div>
+        </div>
+    <!-- END wrapper -->
+    <meta name="_token" content="{!! csrf_token() !!}"/>
+@endsection
